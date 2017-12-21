@@ -1,80 +1,1042 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
 
-# brightcave
+# home-iot-api
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+The API for the EatBacon IOT project
 
-## Questions Collection [/questions]
+## Group Device
 
-### List All Questions [GET]
+### /brightcave/iot/1.0.0/devices
 
-+ Response 200 (application/json)
+#### GET /brightcave/iot/1.0.0/devices{?skip,limit}
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
+returns all registered devices
 
-### Create a New Question [POST]
++ Parameters
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+    + skip
+
+    + limit
 
 + Request (application/json)
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
+    + Headers
 
-+ Response 201 (application/json)
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    All the devices
+
+    + Body
+
+            [
+              "E2D",
+              "E",
+              "ih"
+            ]
+
+    + Schema
+
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uri",
+                "example": "http://10.0.0.225:8080"
+              }
+            }
+
+#### POST
+
++ Request (application/json)
 
     + Headers
 
-            Location: /questions/2
+            Accept: application/json
 
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+              "id": "0729a580-2240-11e6-9eb5-0002a5d5c51b",
+              "uri": "http://10.0.0.220:8080"
             }
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "uri": {
+                  "type": "string",
+                  "format": "uri",
+                  "example": "http://10.0.0.220:8080"
+                },
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+                }
+              }
+            }
+
++ Response 200 (application/json)
+
+    successfully registered device
+
+    + Body
+
+## Group Z-Wave
+
+### /brightcave/iot/1.0.0/lighting/dimmers/{deviceId}/{value}
+
+#### POST
+
++ Parameters
+
+    + deviceId: dimmer-1 (required)
+
+    + value: 30 (required)
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    response
+
+    + Body
+
+            {
+              "code": 0,
+              "message": "everything is ok"
+            }
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "everything is ok"
+                }
+              }
+            }
+
+#### POST /brightcave/iot/1.0.0/lighting/dimmers/{deviceId}/{value}/timer/{timeunit}
+
+sets a dimmer to a specific value on a timer
+
++ Parameters
+
+    + deviceId: dimmer-1 (required)
+
+    + value: 25 (required)
+
+    + timeunit: 100 (required)
+
+    + units: seconds,minutes,milliseconds
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    response
+
+    + Body
+
+            {
+              "code": 0,
+              "message": "everything is ok"
+            }
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "everything is ok"
+                }
+              }
+            }
+
+### /brightcave/iot/1.0.0/lighting/switches/{deviceId}
+
+#### GET
+
++ Parameters
+
+    + deviceId: lamp-2 (required)
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    response
+
+    + Body
+
+            {
+              "level": 0,
+              "lastUpdate": "2000-01-23T04:56:07.000+00:00",
+              "name": "name",
+              "id": "id"
+            }
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "lastUpdate": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "level": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+
+### /brightcave/iot/1.0.0/lighting/switches/{deviceId}/{value}
+
+#### POST
+
++ Parameters
+
+    + deviceId: switch-1 (required)
+
+    + value: true,false (required)
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    response
+
+    + Body
+
+            {
+              "code": 0,
+              "message": "everything is ok"
+            }
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "everything is ok"
+                }
+              }
+            }
+
+### /brightcave/iot/1.0.0/lighting/switches/{deviceId}/{value}/timer/{minutes}
+
+#### POST
+
+sets a switch to a specific value on a timer
+
++ Parameters
+
+    + deviceId: switch-2 (required)
+
+    + value: true,false (required)
+
+    + minutes: 45 (required)
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    response
+
+    + Body
+
+            {
+              "code": 0,
+              "message": "everything is ok"
+            }
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "everything is ok"
+                }
+              }
+            }
+
+### /brightcave/iot/1.0.0/lightingSummary
+
+#### GET
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    ok
+
+    + Body
+
+            {
+              "zoneStatus": [
+                {
+                  "level": 6,
+                  "lastUpdate": "2000-01-23T04:56:07.000+00:00",
+                  "name": "name",
+                  "id": "id"
+                },
+                {
+                  "level": 6,
+                  "lastUpdate": "2000-01-23T04:56:07.000+00:00",
+                  "name": "name",
+                  "id": "id"
+                }
+              ],
+              "zones": [
+                {
+                  "deviceType": "dimmer",
+                  "zone": "zone",
+                  "name": "name",
+                  "id": "id",
+                  "deviceId": 0
+                },
+                {
+                  "deviceType": "dimmer",
+                  "zone": "zone",
+                  "name": "name",
+                  "id": "id",
+                  "deviceId": 0
+                }
+              ]
+            }
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "zones": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "deviceId": {
+                        "type": "integer",
+                        "format": "int32"
+                      },
+                      "deviceType": {
+                        "type": "string",
+                        "enum": [
+                          "dimmer",
+                          "switch"
+                        ]
+                      },
+                      "zone": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "deviceType": "dimmer",
+                      "zone": "zone",
+                      "name": "name",
+                      "id": "id",
+                      "deviceId": 0
+                    }
+                  }
+                },
+                "zoneStatus": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "lastUpdate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "level": {
+                        "type": "integer",
+                        "format": "int32"
+                      }
+                    },
+                    "description": "the status of the lighting zone.",
+                    "example": {
+                      "level": 6,
+                      "lastUpdate": "2000-01-23T04:56:07.000+00:00",
+                      "name": "name",
+                      "id": "id"
+                    }
+                  }
+                }
+              },
+              "description": "ok"
+            }
+
+## Group Environment
+
+### /brightcave/iot/1.0.0/temperature
+
+#### GET
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    ok
+
+    + Body
+
+            {
+              "zoneStatus": [
+                {
+                  "name": "name",
+                  "id": "id",
+                  "units": "fahrenheit",
+                  "value": 5.962133916683182,
+                  "timestamp": "2000-01-23T04:56:07.000+00:00"
+                },
+                {
+                  "name": "name",
+                  "id": "id",
+                  "units": "fahrenheit",
+                  "value": 5.962133916683182,
+                  "timestamp": "2000-01-23T04:56:07.000+00:00"
+                }
+              ],
+              "zones": [
+                {
+                  "inputPosition": 6,
+                  "outputPosition": 1,
+                  "zone": "zone",
+                  "name": "name",
+                  "id": 0
+                },
+                {
+                  "inputPosition": 6,
+                  "outputPosition": 1,
+                  "zone": "zone",
+                  "name": "name",
+                  "id": 0
+                }
+              ]
+            }
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "zones": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "name"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "the unique identifier for the zone"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "inputPosition": {
+                        "type": "integer",
+                        "format": "int32"
+                      },
+                      "outputPosition": {
+                        "type": "integer",
+                        "format": "int32"
+                      },
+                      "zone": {
+                        "type": "string"
+                      }
+                    },
+                    "description": "a single temperature zone",
+                    "example": {
+                      "inputPosition": 6,
+                      "outputPosition": 1,
+                      "zone": "zone",
+                      "name": "name",
+                      "id": 0
+                    }
+                  }
+                },
+                "zoneStatus": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "timestamp",
+                      "value"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "the unique identifier for the zone"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "the name of the zone"
+                      },
+                      "value": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "the temperature in the zone"
+                      },
+                      "units": {
+                        "type": "string",
+                        "description": "the temperature units",
+                        "default": "fahrenheit",
+                        "enum": [
+                          "celcius",
+                          "fahrenheit"
+                        ]
+                      },
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "the timestamp when the temperature was measured"
+                      }
+                    },
+                    "description": "status of a single zone",
+                    "example": {
+                      "name": "name",
+                      "id": "id",
+                      "units": "fahrenheit",
+                      "value": 5.962133916683182,
+                      "timestamp": "2000-01-23T04:56:07.000+00:00"
+                    }
+                  }
+                }
+              },
+              "description": "ok"
+            }
+
+### /brightcave/iot/1.0.0/temperature/forecast/{days}
+
+#### GET
+
++ Parameters
+
+    + days: 7 (required)
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    the forecast
+
+    + Body
+
+            {
+              "city": {
+                "country": "country",
+                "name": "name",
+                "lon": 1.4658129805029452,
+                "id": 0,
+                "lat": 6.027456183070403
+              },
+              "values": [
+                {
+                  "date": "2000-01-23T04:56:07.000+00:00",
+                  "temperature": {
+                    "high": 3.616076749251911,
+                    "low": 9.301444243932576,
+                    "night": 1.2315135367772556,
+                    "evening": 7.386281948385884,
+                    "day": 4.145608029883936,
+                    "morning": 2.027123023002322
+                  },
+                  "weather": {
+                    "summary": "summary",
+                    "icon": "icon",
+                    "description": "description"
+                  },
+                  "humidity": 5,
+                  "pressure": 5.962133916683182,
+                  "clouds": 7,
+                  "windSpeed": 2.3021358869347655
+                },
+                {
+                  "date": "2000-01-23T04:56:07.000+00:00",
+                  "temperature": {
+                    "high": 3.616076749251911,
+                    "low": 9.301444243932576,
+                    "night": 1.2315135367772556,
+                    "evening": 7.386281948385884,
+                    "day": 4.145608029883936,
+                    "morning": 2.027123023002322
+                  },
+                  "weather": {
+                    "summary": "summary",
+                    "icon": "icon",
+                    "description": "description"
+                  },
+                  "humidity": 5,
+                  "pressure": 5.962133916683182,
+                  "clouds": 7,
+                  "windSpeed": 2.3021358869347655
+                }
+              ]
+            }
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "lat": {
+                      "type": "number",
+                      "format": "double"
+                    },
+                    "lon": {
+                      "type": "number",
+                      "format": "double"
+                    },
+                    "country": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "country": "country",
+                    "name": "name",
+                    "lon": 1.4658129805029452,
+                    "id": 0,
+                    "lat": 6.027456183070403
+                  }
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "pressure": {
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "humidity": {
+                        "type": "integer",
+                        "format": "int32"
+                      },
+                      "windSpeed": {
+                        "type": "number",
+                        "format": "double"
+                      },
+                      "clouds": {
+                        "type": "integer",
+                        "format": "int32"
+                      },
+                      "temperature": {
+                        "type": "object",
+                        "properties": {
+                          "low": {
+                            "type": "number",
+                            "format": "double"
+                          },
+                          "high": {
+                            "type": "number",
+                            "format": "double"
+                          },
+                          "morning": {
+                            "type": "number",
+                            "format": "double"
+                          },
+                          "day": {
+                            "type": "number",
+                            "format": "double"
+                          },
+                          "evening": {
+                            "type": "number",
+                            "format": "double"
+                          },
+                          "night": {
+                            "type": "number",
+                            "format": "double"
+                          }
+                        },
+                        "example": {
+                          "high": 3.616076749251911,
+                          "low": 9.301444243932576,
+                          "night": 1.2315135367772556,
+                          "evening": 7.386281948385884,
+                          "day": 4.145608029883936,
+                          "morning": 2.027123023002322
+                        }
+                      },
+                      "weather": {
+                        "type": "object",
+                        "properties": {
+                          "summary": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "icon": {
+                            "type": "string"
+                          }
+                        },
+                        "example": {
+                          "summary": "summary",
+                          "icon": "icon",
+                          "description": "description"
+                        }
+                      }
+                    },
+                    "example": {
+                      "date": "2000-01-23T04:56:07.000+00:00",
+                      "temperature": {
+                        "high": 3.616076749251911,
+                        "low": 9.301444243932576,
+                        "night": 1.2315135367772556,
+                        "evening": 7.386281948385884,
+                        "day": 4.145608029883936,
+                        "morning": 2.027123023002322
+                      },
+                      "weather": {
+                        "summary": "summary",
+                        "icon": "icon",
+                        "description": "description"
+                      },
+                      "humidity": 5,
+                      "pressure": 5.962133916683182,
+                      "clouds": 7,
+                      "windSpeed": 2.3021358869347655
+                    }
+                  }
+                }
+              }
+            }
+
+### /brightcave/iot/1.0.0/temperature/{zoneId}
+
+#### GET
+
++ Parameters
+
+    + zoneId: living-room (required)
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    Zone temperature
+
+    + Body
+
+            {
+              "name": "name",
+              "id": "id",
+              "units": "fahrenheit",
+              "value": 5.962133916683182,
+              "timestamp": "2000-01-23T04:56:07.000+00:00"
+            }
+
+    + Schema
+
+            {
+              "type": "object",
+              "required": [
+                "id",
+                "timestamp",
+                "value"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "the unique identifier for the zone"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "the name of the zone"
+                },
+                "value": {
+                  "type": "number",
+                  "format": "double",
+                  "description": "the temperature in the zone"
+                },
+                "units": {
+                  "type": "string",
+                  "description": "the temperature units",
+                  "default": "fahrenheit",
+                  "enum": [
+                    "celcius",
+                    "fahrenheit"
+                  ]
+                },
+                "timestamp": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "the timestamp when the temperature was measured"
+                }
+              },
+              "description": "status of a single zone"
+            }
+
+### /brightcave/iot/1.0.0/temperature/{zoneId}/heater
+
+#### GET
+
+gets the state of the heater
+
++ Parameters
+
+    + zoneId: patio (required)
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    heater state
+
+    + Body
+
+            {
+              "id": "id",
+              "state": "state"
+            }
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                }
+              }
+            }
+
+### /brightcave/iot/1.0.0/temperature/{zoneId}/heater/{state}
+
+#### POST
+
+turns the heater on or off
+
++ Parameters
+
+    + zoneId: kitchen (required)
+
+    + state: false,true (required)
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    Status of the operation
+
+    + Body
+
+            {
+              "code": 0,
+              "message": "everything is ok"
+            }
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "everything is ok"
+                }
+              }
+            }
+
+## Group Zones
+
+### /brightcave/iot/1.0.0/zones
+
+#### GET
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    ok
+
+    + Body
+
+            [
+              "veniam Lorem anim Duis",
+              "in",
+              "sunt in dolor",
+              "irure",
+              "qui aute ipsum"
+            ]
+
+    + Schema
+
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+
+### /brightcave/iot/1.0.0/zones/{zoneId}/quiet
+
+#### GET
+
++ Parameters
+
+    + zoneId: basement,first-floor,second-floor (required)
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    ok
+
+    + Body
+
