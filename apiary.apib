@@ -4,13 +4,11 @@ FORMAT: 1A
 
 The API for the EatBacon IOT project
 
-## Group Device
+# Group Device
 
-### /brightcave/iot/1.0.0/devices
+## All Devices [/devices{?skip,limit}]
 
-#### GET /brightcave/iot/1.0.0/devices{?skip,limit}
-
-returns all registered devices
+### return all devices [GET]
 
 + Parameters
 
@@ -49,7 +47,7 @@ returns all registered devices
               }
             }
 
-#### POST
+### create device [POST]
 
 + Request (application/json)
 
@@ -90,7 +88,7 @@ returns all registered devices
 
 ## Group Z-Wave
 
-### /brightcave/iot/1.0.0/lighting/dimmers/{deviceId}/{value}
+### /lighting/dimmers/{deviceId}/{value}
 
 #### POST
 
@@ -135,7 +133,7 @@ returns all registered devices
               }
             }
 
-#### POST /brightcave/iot/1.0.0/lighting/dimmers/{deviceId}/{value}/timer/{timeunit}
+#### POST /lighting/dimmers/{deviceId}/{value}/timer/{timeunit}
 
 sets a dimmer to a specific value on a timer
 
@@ -1039,4 +1037,3 @@ turns the heater on or off
     ok
 
     + Body
-
