@@ -8,7 +8,7 @@ The API for the EatBacon IOT project
 
 ### /devices{?skip,limit}
 
-#### list devices [GET]
+#### GET
 
 + Parameters
 
@@ -31,9 +31,9 @@ The API for the EatBacon IOT project
     + Body
 
             [
-              "E2D",
-              "E",
-              "ih"
+              "http://10.0.0.1:8080",
+              "http://10.0.0.2:80",
+              "http://10.0.0.3:8888"
             ]
 
     + Schema
@@ -47,7 +47,7 @@ The API for the EatBacon IOT project
               }
             }
 
-#### create device [POST]
+#### POST
 
 + Request (application/json)
 
