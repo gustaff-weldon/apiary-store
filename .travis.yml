@@ -1,8 +1,11 @@
+language: node_js
+node_js:
+  - "6.11"
 
 sudo: false
-before_install:
-  - echo "It's alive!"
+
 install:
-  - echo "Installing now.... not"
+  - npm install
+
 script:
-  - echo "Testing now.... not"
+  - npm test
