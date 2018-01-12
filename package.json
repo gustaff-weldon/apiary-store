@@ -1,0 +1,26 @@
+{
+  "name": "apiary-store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "drakov": "^1.0.4",
+    "dredd": "^4.9.2",
+    "swagger2blueprint": "^1.1.0"
+  },
+  "scripts": {
+    "start": "drakov -f apiary.apib -p 3000",
+    "test": "dredd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gustaff-weldon/apiary-store.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gustaff-weldon/apiary-store/issues"
+  },
+  "homepage": "https://github.com/gustaff-weldon/apiary-store#readme"
+}
