@@ -200,13 +200,13 @@ sets a dimmer to a specific value on a timer
               }
             }
 
-### /brightcave/iot/1.0.0/lighting/switches/{deviceId}
+### /lighting/switches/{deviceId}
 
 #### GET
 
 + Parameters
 
-    + deviceId: lamp-2 (required)
+    + deviceId: lamp (required)
 
 + Request (application/json)
 
@@ -250,7 +250,7 @@ sets a dimmer to a specific value on a timer
               }
             }
 
-### /brightcave/iot/1.0.0/lighting/switches/{deviceId}/{value}
+### /lighting/switches/{deviceId}/{value}
 
 #### POST
 
@@ -294,7 +294,7 @@ sets a dimmer to a specific value on a timer
               }
             }
 
-### /brightcave/iot/1.0.0/lighting/switches/{deviceId}/{value}/timer/{minutes}
+### /lighting/switches/{deviceId}/{value}/timer/{minutes}
 
 #### POST
 
@@ -342,7 +342,7 @@ sets a switch to a specific value on a timer
               }
             }
 
-### /brightcave/iot/1.0.0/lightingSummary
+### /lightingSummary
 
 #### GET
 
@@ -466,7 +466,7 @@ sets a switch to a specific value on a timer
 
 ## Group Environment
 
-### /brightcave/iot/1.0.0/temperature
+### /temperature
 
 #### GET
 
@@ -609,7 +609,7 @@ sets a switch to a specific value on a timer
               "description": "ok"
             }
 
-### /brightcave/iot/1.0.0/temperature/forecast/{days}
+### /temperature/forecast/{days}
 
 #### GET
 
@@ -823,7 +823,7 @@ sets a switch to a specific value on a timer
               }
             }
 
-### /brightcave/iot/1.0.0/temperature/{zoneId}
+### /temperature/{zoneId}
 
 #### GET
 
@@ -894,7 +894,7 @@ sets a switch to a specific value on a timer
               "description": "status of a single zone"
             }
 
-### /brightcave/iot/1.0.0/temperature/{zoneId}/heater
+### /temperature/{zoneId}/heater
 
 #### GET
 
@@ -937,7 +937,7 @@ gets the state of the heater
               }
             }
 
-### /brightcave/iot/1.0.0/temperature/{zoneId}/heater/{state}
+### /temperature/{zoneId}/heater/{state}
 
 #### POST
 
