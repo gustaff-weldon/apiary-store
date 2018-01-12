@@ -11,7 +11,7 @@ Collection of all Gists.
 + Parameters
     + since (optional, string) ... Timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ` Only gists updated at or after this time are returned.
 
-+ Response 200
++ Response 200 (application/json;charset=utf-8)
 
 ### Create a Gist [POST]
 To create a new Gist simply provide a JSON hash of the *description* and *content* attributes for the new Gist. 
@@ -21,7 +21,7 @@ To create a new Gist simply provide a JSON hash of the *description* and *conten
         + descripton: `sth sth` (string, required)
         + content: `here goess content` (string, required)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
 ## Group Device
 
@@ -31,7 +31,7 @@ To create a new Gist simply provide a JSON hash of the *description* and *conten
 
 + Parameters
 
-    + skip: 'aaa-bbb-ccc' (optional, string) - Comma-separated list of device ids to skip
+    + skip: aaa-bbb-ccc (optional, string) - Comma-separated list of device ids to skip
 
     + limit (optional, number) - Maximum devices count to be returned
         + Default: 10
@@ -44,7 +44,7 @@ To create a new Gist simply provide a JSON hash of the *description* and *conten
 
     + Body
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     All the devices
 
@@ -100,7 +100,7 @@ To create a new Gist simply provide a JSON hash of the *description* and *conten
               }
             }
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     successfully registered device
 
@@ -126,7 +126,7 @@ To create a new Gist simply provide a JSON hash of the *description* and *conten
 
     + Body
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     response
 
@@ -143,8 +143,7 @@ To create a new Gist simply provide a JSON hash of the *description* and *conten
               "type": "object",
               "properties": {
                 "code": {
-                  "type": "integer",
-                  "format": "int32"
+                  "type": "integer"
                 },
                 "message": {
                   "type": "string",
@@ -175,7 +174,7 @@ sets a dimmer to a specific value on a timer
 
     + Body
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     response
 
@@ -192,8 +191,7 @@ sets a dimmer to a specific value on a timer
               "type": "object",
               "properties": {
                 "code": {
-                  "type": "integer",
-                  "format": "int32"
+                  "type": "integer"
                 },
                 "message": {
                   "type": "string",
@@ -218,7 +216,7 @@ sets a dimmer to a specific value on a timer
 
     + Body
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     response
 
@@ -247,8 +245,7 @@ sets a dimmer to a specific value on a timer
                   "format": "date-time"
                 },
                 "level": {
-                  "type": "integer",
-                  "format": "int32"
+                  "type": "integer"
                 }
               }
             }
@@ -271,7 +268,7 @@ sets a dimmer to a specific value on a timer
 
     + Body
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     response
 
@@ -288,8 +285,7 @@ sets a dimmer to a specific value on a timer
               "type": "object",
               "properties": {
                 "code": {
-                  "type": "integer",
-                  "format": "int32"
+                  "type": "integer"
                 },
                 "message": {
                   "type": "string",
@@ -320,7 +316,7 @@ sets a switch to a specific value on a timer
 
     + Body
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     response
 
@@ -337,8 +333,7 @@ sets a switch to a specific value on a timer
               "type": "object",
               "properties": {
                 "code": {
-                  "type": "integer",
-                  "format": "int32"
+                  "type": "integer"
                 },
                 "message": {
                   "type": "string",
@@ -359,7 +354,7 @@ sets a switch to a specific value on a timer
 
     + Body
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     ok
 
@@ -415,8 +410,7 @@ sets a switch to a specific value on a timer
                         "type": "string"
                       },
                       "deviceId": {
-                        "type": "integer",
-                        "format": "int32"
+                        "type": "integer"
                       },
                       "deviceType": {
                         "type": "string",
@@ -454,8 +448,7 @@ sets a switch to a specific value on a timer
                         "format": "date-time"
                       },
                       "level": {
-                        "type": "integer",
-                        "format": "int32"
+                        "type": "integer"
                       }
                     },
                     "description": "the status of the lighting zone.",
@@ -480,12 +473,9 @@ sets a switch to a specific value on a timer
 + Request (application/json)
 
     + Headers
-
             Accept: application/json
 
-    + Body
-
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     ok
 
@@ -541,20 +531,17 @@ sets a switch to a specific value on a timer
                     ],
                     "properties": {
                       "id": {
-                        "type": "integer",
-                        "format": "int32",
+                        "type": "integer"
                         "description": "the unique identifier for the zone"
                       },
                       "name": {
                         "type": "string"
                       },
                       "inputPosition": {
-                        "type": "integer",
-                        "format": "int32"
+                        "type": "integer"
                       },
                       "outputPosition": {
-                        "type": "integer",
-                        "format": "int32"
+                        "type": "integer"
                       },
                       "zone": {
                         "type": "string"
@@ -638,7 +625,7 @@ sets a switch to a specific value on a timer
 
     + Body
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     the forecast
 
@@ -745,16 +732,14 @@ sets a switch to a specific value on a timer
                         "format": "double"
                       },
                       "humidity": {
-                        "type": "integer",
-                        "format": "int32"
+                        "type": "integer"
                       },
                       "windSpeed": {
                         "type": "number",
                         "format": "double"
                       },
                       "clouds": {
-                        "type": "integer",
-                        "format": "int32"
+                        "type": "integer"
                       },
                       "temperature": {
                         "type": "object",
@@ -854,7 +839,7 @@ sets a switch to a specific value on a timer
 
     + Body
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     Zone temperature
 
@@ -927,7 +912,7 @@ gets the state of the heater
 
     + Body
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     heater state
 
@@ -972,6 +957,6 @@ turns the heater on or off
 
     + Body
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Body
