@@ -1,8 +1,27 @@
 FORMAT: 1A
 
-# home-iot-api
+# Example API
 
 The API for the EatBacon IOT project
+
+## Gists Collection [/gists{?since}]
+Collection of all Gists.
+
+### List All Gists [GET]
++ Parameters
+    + since (optional, string) ... Timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ` Only gists updated at or after this time are returned.
+
++ Response 200
+
+### Create a Gist [POST]
+To create a new Gist simply provide a JSON hash of the *description* and *content* attributes for the new Gist. 
+
++ Request (application/json)
+    + Attributes
+        + descripton: `sth sth` (string, required)
+        + content: `here goess content` (string, required)
+
++ Response 201 (application/json)
 
 ## Group Device
 
@@ -12,9 +31,10 @@ The API for the EatBacon IOT project
 
 + Parameters
 
-    + skip
+    + skip: 'aaa-bbb-ccc' (optional, string) - Comma-separated list of device ids to skip
 
-    + limit
+    + limit (optional, number) - Maximum devices count to be returned
+        + Default: 10
 
 + Request (application/json)
 
@@ -953,87 +973,5 @@ turns the heater on or off
     + Body
 
 + Response 200 (application/json)
-
-    Status of the operation
-
-    + Body
-
-            {
-              "code": 0,
-              "message": "everything is ok"
-            }
-
-    + Schema
-
-            {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "message": {
-                  "type": "string",
-                  "example": "everything is ok"
-                }
-              }
-            }
-
-## Group Zones
-
-### /brightcave/iot/1.0.0/zones
-
-#### GET
-
-+ Request (application/json)
-
-    + Headers
-
-            Accept: application/json
-
-    + Body
-
-+ Response 200 (application/json)
-
-    ok
-
-    + Body
-
-            [
-              "veniam Lorem anim Duis",
-              "in",
-              "sunt in dolor",
-              "irure",
-              "qui aute ipsum"
-            ]
-
-    + Schema
-
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-
-### /brightcave/iot/1.0.0/zones/{zoneId}/quiet
-
-#### GET
-
-+ Parameters
-
-    + zoneId: basement,first-floor,second-floor (required)
-
-+ Request (application/json)
-
-    + Headers
-
-            Accept: application/json
-
-    + Body
-
-+ Response 200 (application/json)
-
-    ok
 
     + Body
